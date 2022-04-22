@@ -4,6 +4,7 @@ Project Name: Trello Clone.
 Author: Vuong Truong.
 Start: 22/04/2022.
 Mentor: trungquandev.com.
+(MongoDb,Express,React,Nodejs).
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
