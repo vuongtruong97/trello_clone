@@ -1,9 +1,11 @@
 # Getting Started React and Vuong_Truong_9x (This is my learning project)
 
-Project Name: Trello Clone;
-Author: Vuong Truong;
-Start: 22/04/2022;
-Mentor: trungquandev.com
+
+Project Name: Trello Clone(MongoDb,Express,React,Nodejs).
+Author: Vuong Truong.
+Start: 22/04/2022.
+Mentor: trungquandev.com.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
