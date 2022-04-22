@@ -1,6 +1,5 @@
 # Getting Started React and Vuong_Truong_9x (This is my learning project)
 
-
 Project Name: Trello Clone(MongoDb,Express,React,Nodejs).
 Author: Vuong Truong.
 Start: 22/04/2022.
