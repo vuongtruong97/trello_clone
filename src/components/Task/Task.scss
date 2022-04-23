@@ -1,0 +1,19 @@
+@import '__glob_config';
+
+li.task_item {
+    background-color: $task_item_bg_color;
+    border-radius: $board_content_border_radius;
+    overflow: hidden;
+    box-shadow: 0 1px 0 #091e4240;
+    margin-bottom: 8px;
+    font-size: 1.4rem;
+    p {
+        padding: 6px 8px;
+        width: 100%;
+    }
+    img {
+        width: 100%;
+        object-fit: cover;
+        height: 200px;
+    }
+}
