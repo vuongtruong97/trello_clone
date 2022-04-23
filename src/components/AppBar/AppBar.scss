@@ -1,0 +1,9 @@
+@import '__glob_config';
+
+.app_bar {
+    background-color: $appbar_bg_color;
+    font-size: 2.5rem;
+    padding-left: $gap;
+    display: flex;
+    align-items: center;
+}

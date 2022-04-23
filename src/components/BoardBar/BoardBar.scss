@@ -1,0 +1,10 @@
+@import '__glob_config';
+
+.board_bar {
+    padding-left: $gap;
+    display: flex;
+    align-items: center;
+    background-color: $board_bg_color;
+    font-size: 1.8rem;
+    color: #fff;
+}

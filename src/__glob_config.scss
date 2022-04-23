@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+
+html {
+    font-size: 62.5%;
+    font-family: 'Poppins', sans-serif;
+}
+* {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+$appbar_bg_color: #845ec2;
+$board_bg_color: #172b4d;
+$dynamic_bg_color: #55d8c1;
+$board_content_bg_color: #bdb6c2;
+$task_item_bg_color: #fff;
+$scrollbar_bg_color: #00000080;
+
+$dynamic_bg_image_gradient: linear-gradient(
+    to bottom,
+    #d16ba5,
+    #c777b9,
+    #ba83ca,
+    #aa8fd8,
+    #9a9ae1,
+    #8aa7ec,
+    #79b3f4,
+    #69bff8,
+    #52cffe,
+    #41dfff,
+    #46eefa,
+    #5ffbf1
+);
+
+$gap: 10px;
+
+$appbar_height: 44px;
+$board_bar_height: 40px;
+$board_content_header_height: 40px;
+$board_content_footer_height: 38px;
+$board_content_border_radius: 3px;
