@@ -10,6 +10,10 @@ html {
     padding: 0;
     box-sizing: border-box;
 }
+a {
+    text-decoration: none;
+    color: white;
+}
 
 $appbar_bg_color: #845ec2;
 $board_bg_color: #172b4d;
