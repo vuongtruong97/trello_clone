@@ -5,6 +5,7 @@
     width: 300px;
     height: 100%;
     margin-left: 10px;
+    position: relative;
     > * {
         background-color: $board_content_bg_color;
         color: #3a3a3a;
@@ -33,6 +34,7 @@
         max-height: calc(
             100% - $board_content_header_height - $board_content_footer_height
         );
+        min-height: 30px;
         padding: 0 $gap;
         overflow-y: auto;
         /* ===== Scrollbar CSS ===== */
