@@ -15,12 +15,15 @@ a {
     color: white;
 }
 
+$app_primary_text_color: #000;
+
 $appbar_bg_color: #845ec2;
 $board_bg_color: #172b4d;
 $dynamic_bg_color: #55d8c1;
-$board_content_bg_color: #bdb6c2;
+$board_content_bg_color: #e3e0af;
 $task_item_bg_color: #fff;
 $scrollbar_bg_color: #00000080;
+$title_color: #172b4d;
 
 $dynamic_bg_image_gradient: linear-gradient(
     to bottom,
@@ -37,7 +40,7 @@ $dynamic_bg_image_gradient: linear-gradient(
     #46eefa,
     #5ffbf1
 );
-
+$column_width: 280px;
 $gap: 10px;
 
 $appbar_height: 44px;

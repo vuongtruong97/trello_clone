@@ -1,4 +1,3 @@
-import React from 'react';
 import 'components/AppBar/AppBar';
 import './AppBar.scss';
 
@@ -6,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 function AppBar() {
+    // var test = 'hihihi';
     return (
         <nav className='app_bar'>
             <div className='app_bar_items app_bar_logo'>
@@ -14,7 +14,7 @@ function AppBar() {
                 </div>
                 <div className='bar_item logo_item'>
                     <FontAwesomeIcon icon={solid('dice-d6')} />
-                    Troller
+                    Todos
                 </div>
             </div>
             <div className='app_bar_items app_bar_options'>
@@ -63,7 +63,7 @@ function AppBar() {
                         height: '30px',
                         display: 'inline-block',
                         backgroundImage:
-                            'url("https://www.w3schools.com/howto/img_avatar.png")',
+                            "url('https://www.w3schools.com/howto/img_avatar.png')",
                         backgroundSize: 'cover',
                         borderRadius: '999px',
                     }}

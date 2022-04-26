@@ -2,37 +2,67 @@
 
 .column {
     flex: 0 0 auto;
-    width: 300px;
+    width: $column_width;
     height: 100%;
     margin-left: 10px;
+    position: relative;
     > * {
         background-color: $board_content_bg_color;
         color: #3a3a3a;
         overflow-x: hidden;
     }
+    .column_pin {
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(25%, -25%);
+        background-color: transparent;
+        font-size: 2.5rem;
+    }
     header {
         padding-left: 15px;
         height: $board_content_header_height;
         line-height: $board_content_header_height;
-        font-size: 1.4rem;
-        font-weight: 500;
-        color: #172b4d;
+        font-size: 1.6rem;
+        font-weight: 600;
+        color: $title_color;
+        text-shadow: 1px 1px #fff;
         border-radius: $board_content_border_radius $board_content_border_radius
             0 0;
     }
     footer {
         height: $board_content_footer_height;
         line-height: $board_content_footer_height;
-        padding-left: 15px;
+        padding: 0 $gap;
 
         border-radius: 0 0 $board_content_border_radius
             $board_content_border_radius;
+        font-size: 1.5rem;
+
+        .footer_add {
+            height: calc($board_content_footer_height - $gap);
+            display: flex;
+            align-items: center;
+            padding-left: $gap;
+            border-radius: $board_content_border_radius;
+            color: #5e6c84;
+            cursor: cell;
+            svg {
+                margin-right: 5px;
+                font-size: 1.8rem;
+            }
+            &:hover {
+                color: #fff;
+                border: 1px dashed #808080;
+            }
+        }
     }
 
     ul.card_list {
         max-height: calc(
             100% - $board_content_header_height - $board_content_footer_height
         );
+        min-height: 30px;
         padding: 0 $gap;
         overflow-y: auto;
         /* ===== Scrollbar CSS ===== */

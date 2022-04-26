@@ -7,6 +7,11 @@ li.card_item {
     box-shadow: 0 1px 0 #091e4240;
     margin-bottom: 8px;
     font-size: 1.4rem;
+    transform: animation linear 0.3s;
+    &:hover {
+        transform: scale(1.005);
+        box-shadow: 3px 3px 10px -2px #7b7b7b;
+    }
     p {
         padding: 6px 8px;
         width: 100%;

@@ -1,0 +1,81 @@
+{
+    "env": {
+        "es2021": true,
+        "node": true,
+        "browser": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:react/jsx-runtime"
+    ],
+    // "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        //  "@typescript-eslint",
+        "react-hooks"
+    ],
+    "rules": {
+        "jsx-quotes": ["error", "prefer-single"],
+        // "camelcase": [2, { "properties": "always" }],
+        // "indent": ["error", 4],
+        // "linebreak-style": [2, "windows"],
+        // "comma-dangle": 0,
+        // "semi": [2, "always"],
+        // "curly": [2, "all"],
+        // "eqeqeq": [2, "smart"],
+        // "one-var-declaration-per-line": [2, "always"],
+        // "new-cap": [2, { "newIsCap": true, "capIsNew": true }],
+        "no-trailing-spaces": 1,
+        "no-unused-vars": 1,
+        "no-multi-spaces": 1,
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
+        // "no-console": 1,
+        "no-multiple-empty-lines": 1,
+        "space-before-blocks": ["error", "always"],
+        "object-curly-spacing": [1, "always"],
+        "no-unexpected-multiline": "warn",
+        "react/prop-types": 0,
+        "react/display-name": 0,
+        "keyword-spacing": 1,
+        "comma-spacing": 1,
+        "arrow-spacing": 1,
+        "indent": [
+            2,
+            4,
+            {
+                "SwitchCase": 1
+            }
+        ],
+        // "quotes": [
+        //     2,
+        //     "single",
+        //     { "avoidEscape": true, "allowTemplateLiterals": true }
+        // ],
+        "semi": [2, "always"],
+        "curly": [2, "all"],
+        "camelcase": [
+            2,
+            {
+                "properties": "always"
+            }
+        ],
+        "eqeqeq": [2, "smart"],
+        "one-var-declaration-per-line": [2, "always"],
+        "new-cap": 2,
+        "no-case-declarations": 0
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    }
+}
