@@ -1,20 +1,18 @@
 import './Column.scss';
 import sortByKeyOfAnotherArr from 'utilities/sortByKeyOfAnotherArr';
 import Card from '../Card/Card';
-import { Droppable, Draggable } from 'react-beautiful-dnd';
-function Column({ column, index }) {
+import { Droppable } from 'react-beautiful-dnd';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+function Column({ column }) {
     const { cards, cardOrder } = column;
     const sortedCards = sortByKeyOfAnotherArr(cards, cardOrder, 'id');
 
     return (
-        // <Draggable draggableId={column.id} index={index}>
-        // {(provided) => (
-        <div
-            // ref={provided.innerRef}
-            // {...provided.draggableProps}
-            // {...provided.dragHandleProps}
-            className='column'
-        >
+        <div className='column'>
+            <div className='column_pin'>
+                <FontAwesomeIcon icon={solid('paperclip')} />
+            </div>
             <header>{column.title}</header>
             <Droppable droppableId={column.id}>
                 {(provided) => (
@@ -30,10 +28,13 @@ function Column({ column, index }) {
                     </ul>
                 )}
             </Droppable>
-            <footer>Add another card</footer>
+            <footer>
+                <div className='footer_add'>
+                    <FontAwesomeIcon icon={solid('plus')} />
+                    Add a card
+                </div>
+            </footer>
         </div>
-        // )}
-        // </Draggable>
     );
 }
 

@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import './BoardContent.scss';
-import { isEmpty, cloneDeep, set } from 'lodash';
+import { isEmpty, cloneDeep } from 'lodash';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 import { initialData } from 'actions/initialData';
 import sortByKeyOfAnotherArr from 'utilities/sortByKeyOfAnotherArr';
-import {
-    DragDropContext,
-    // , Droppable
-} from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { reOrder } from 'utilities/dndutil';
 
 import Column from '../Column/Column.jsx';
 function BoardContent() {
@@ -52,8 +52,9 @@ function BoardContent() {
         );
     }
     const onDragEnd = (result) => {
-        const { draggableId, source, destination } = result;
+        trash.style.display = 'none';
 
+        const { source, destination } = result;
         // invalid position drop
         if (!destination) {
             return;
@@ -67,75 +68,125 @@ function BoardContent() {
             return;
         }
 
-        const startColumn = columns.find((column) => {
-            return column.id === source.droppableId;
-        });
-        const finishColumn = columns.find((column) => {
-            return column.id === destination.droppableId;
-        });
-        // same column
-        if (startColumn === finishColumn) {
-            const column = columns.find(
-                (board) => board.id === destination.droppableId
-            );
-            const { cardOrder } = column;
+        if (result.type === destination.droppableId) {
+            let newBoard = { ...board };
+            let newColumns = [...columns];
+            newColumns = reOrder(newColumns, source.index, destination.index);
+            const newcolumnsOrder = newColumns.map((col) => col.id);
+            newBoard.columnOrder = newcolumnsOrder;
 
-            // update card order
-            const [dragItemOrder] = cardOrder.splice(source.index, 1);
-            cardOrder.splice(destination.index, 0, dragItemOrder);
-
-            //change object reference and setState
-            setColumns(cloneDeep(columns));
+            setColumns(newColumns);
+            setBoard(newBoard);
         }
-        // different column
-        if (startColumn !== finishColumn) {
-            const [cardOrderDrag] = startColumn.cardOrder.splice(
-                source.index,
-                1
-            );
-            const [cardDrag] = startColumn.cards.splice(source.index, 1);
+        if (result.type === 'DEFAULT') {
+            const startColumn = columns.find((column) => {
+                return column.id === source.droppableId;
+            });
+            const finishColumn = columns.find((column) => {
+                return column.id === destination.droppableId;
+            });
+            // same column
+            if (startColumn === finishColumn) {
+                const newColumn = { ...finishColumn };
+                const newCards = reOrder(
+                    newColumn.cards,
+                    source.index,
+                    destination.index
+                );
+                newColumn.cards = newCards;
+                newColumn.cardOrder = newCards.map((card) => card.id);
 
-            finishColumn.cardOrder.splice(destination.index, 0, cardOrderDrag);
-            finishColumn.cards.splice(destination.index, 0, cardDrag);
+                // map and change
+                const newColumns = columns.map((col) => {
+                    if (col.id === newColumn.id) {
+                        col = newColumn;
+                    }
+                    return col;
+                });
+                setColumns(newColumns);
+            }
+            // different column
+            if (startColumn !== finishColumn) {
+                // get and remove dragged item
+                const [cardOrderDrag] = startColumn.cardOrder.splice(
+                    source.index,
+                    1
+                );
+                const [cardDrag] = startColumn.cards.splice(source.index, 1);
 
-            //change object reference and setState
-            setColumns(cloneDeep(columns));
+                //add droped item
+                finishColumn.cardOrder.splice(
+                    destination.index,
+                    0,
+                    cardOrderDrag
+                );
+                finishColumn.cards.splice(destination.index, 0, cardDrag);
+
+                //change object reference and setState
+                setColumns(cloneDeep(columns));
+            }
+            appBar.style.opacity = 'inherit';
+            boardBbar.style.opacity = 'inherit';
         }
-        appBar.style.opacity = 'inherit';
-        boardBbar.style.opacity = 'inherit';
     };
+    const trash = document.querySelector('.trash_item');
     const onDragStart = (start) => {
-        if (start) {
-            // if ((appBar, boardBbar)) {
-            //     appBar.style.opacity = '0.2';
-            //     boardBbar.style.opacity = '0.2';
-            // }
-        }
+        trash.style.display = 'flex';
+        console.log(start);
     };
-    const onDragUpdate = () => {
-        // const opacity = destination ? destination.index / 6 : 0;
-    };
-    console.log('re - render');
+
+    console.log('render');
     return (
-        <DragDropContext
-            onDragEnd={onDragEnd}
-            onDragStart={onDragStart}
-            onDragUpdate={onDragUpdate}
-        >
-            {/* <Droppable droppableId={board.id}>
-                {(provided) => ( */}
-            <div
-                // ref={provided.innerRef}
-                // {...provided.droppableProps}
-                className='board_content'
+        <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
+            <Droppable
+                droppableId={board.id}
+                direction='horizontal'
+                type={board.id}
             >
-                {columns.map((column, i) => {
-                    return <Column key={i} column={column} index={i} />;
-                })}
-                {/* {provided.placeholder} */}
-            </div>
-            {/* )}
-            </Droppable> */}
+                {(provided) => (
+                    <div
+                        ref={provided.innerRef}
+                        {...provided.droppableProps}
+                        className='board_content'
+                    >
+                        {columns.map((column, i) => {
+                            return (
+                                <Draggable
+                                    key={column.id}
+                                    draggableId={column.id}
+                                    index={i}
+                                >
+                                    {(provided) => {
+                                        return (
+                                            <div
+                                                ref={provided.innerRef}
+                                                {...provided.draggableProps}
+                                                {...provided.dragHandleProps}
+                                            >
+                                                <Column column={column} />
+                                            </div>
+                                        );
+                                    }}
+                                </Draggable>
+                            );
+                        })}
+                        {provided.placeholder}
+                        <div className='crud_list add_list'>
+                            <div className='add_list'>
+                                <FontAwesomeIcon icon={solid('plus')} />
+                                Add another list
+                                <form action=''></form>
+                            </div>
+
+                            <div className='crud_list trash_item'>
+                                <FontAwesomeIcon icon={solid('trash')} />
+                                Delete Item
+                                <form action=''></form>
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </Droppable>
         </DragDropContext>
     );
 }
