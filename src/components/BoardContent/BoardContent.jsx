@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './BoardContent.scss';
 import { isEmpty, cloneDeep } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,6 +13,7 @@ import Column from '../Column/Column.jsx';
 function BoardContent() {
     const [board, setBoard] = useState({});
     const [columns, setColumns] = useState([]);
+    const trashElement = useRef();
 
     const appBar = document.querySelector('.app_bar');
     const boardBbar = document.querySelector('.board_bar');
@@ -52,7 +53,7 @@ function BoardContent() {
         );
     }
     const onDragEnd = (result) => {
-        trash.style.display = 'none';
+        trashElement.current.style.display = 'none';
 
         const { source, destination } = result;
         // invalid position drop
@@ -129,9 +130,8 @@ function BoardContent() {
             boardBbar.style.opacity = 'inherit';
         }
     };
-    const trash = document.querySelector('.trash_item');
     const onDragStart = (start) => {
-        trash.style.display = 'flex';
+        trashElement.current.style.display = 'flex';
         console.log(start);
     };
 
@@ -178,7 +178,10 @@ function BoardContent() {
                                 <form action=''></form>
                             </div>
 
-                            <div className='crud_list trash_item'>
+                            <div
+                                ref={trashElement}
+                                className='crud_list trash_item'
+                            >
                                 <FontAwesomeIcon icon={solid('trash')} />
                                 Delete Item
                                 <form action=''></form>
