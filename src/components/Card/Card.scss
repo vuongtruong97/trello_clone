@@ -1,6 +1,6 @@
 @import '__glob_config';
 
-li.card_item {
+div.card_item {
     background-color: $task_item_bg_color;
     border-radius: $board_content_border_radius;
     overflow: hidden;

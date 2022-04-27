@@ -1,0 +1,100 @@
+@import '__glob_config';
+.crud_list {
+    position: relative;
+    min-height: 45px;
+    margin-left: $gap;
+    color: $title_color;
+    font-weight: 500;
+    & > * {
+        border-radius: $board_content_border_radius;
+        padding: 0 $gap;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        min-width: $column_width;
+        background-color: rgba(255, 255, 255, 0.52);
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.608);
+        }
+    }
+
+    .add_column,
+    .toggleForm {
+        padding: $gap $gap 0 $gap;
+        border-radius: $board_content_border_radius;
+        & > * {
+            margin-bottom: $gap;
+        }
+        .add_btn {
+            cursor: cell;
+
+            svg {
+                margin-right: 5px;
+                font-size: 1.6rem;
+            }
+        }
+        .toggleForm {
+            position: absolute;
+            right: 0;
+            background-color: #fff;
+            top: 0;
+            left: 0;
+            transition: all 0.3s linear;
+            animation: fadeInDown 0.3s ease-in-out 0s forwards;
+
+            .form_input {
+                width: 100%;
+                height: 35px;
+                border: 2px solid $title_color;
+                outline: none;
+                border-radius: $board_content_border_radius;
+                padding: 0 10px;
+                font-family: inherit;
+            }
+            .input_warn {
+                display: block;
+                font-size: 1.2rem;
+                color: red;
+            }
+            .form_footer {
+                display: flex;
+                align-items: center;
+                .form_submit_btn {
+                    background-color: $appbar_bg_color;
+                    color: #fff;
+                    height: 30px;
+                    width: 60px;
+                    border-radius: $board_content_border_radius;
+                    border: none;
+                    font-family: inherit;
+                    font-weight: 500;
+                    cursor: pointer;
+                    &:hover {
+                        opacity: 0.9;
+                    }
+                }
+                .close_form {
+                    margin-left: $gap;
+                    font-size: 2.2rem;
+                    cursor: pointer;
+                    &:hover {
+                        opacity: 0.8;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 100%, 0);
+        transform: translate3d(0, -20%, 0);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: none;
+        transform: none;
+    }
+}
