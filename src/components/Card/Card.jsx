@@ -7,7 +7,7 @@ function Card({ card, index }) {
         <Draggable draggableId={card.id} index={index}>
             {(provided, snapshot) => {
                 return (
-                    <li
+                    <div
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
@@ -19,7 +19,7 @@ function Card({ card, index }) {
                     >
                         {card.cover && <img src={card.cover} alt='test img' />}
                         <p>{card.title}</p>
-                    </li>
+                    </div>
                 );
             }}
         </Draggable>

@@ -58,7 +58,7 @@
         }
     }
 
-    ul.card_list {
+    div.card_list {
         max-height: calc(
             100% - $board_content_header_height - $board_content_footer_height
         );

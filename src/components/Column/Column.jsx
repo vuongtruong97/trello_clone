@@ -16,7 +16,7 @@ function Column({ column }) {
             <header>{column.title}</header>
             <Droppable droppableId={column.id}>
                 {(provided) => (
-                    <ul
+                    <div
                         {...provided.droppableProps}
                         ref={provided.innerRef}
                         className='card_list'
@@ -25,7 +25,7 @@ function Column({ column }) {
                             <Card key={card.id} card={card} index={index} />
                         ))}
                         {provided.placeholder}
-                    </ul>
+                    </div>
                 )}
             </Droppable>
             <footer>

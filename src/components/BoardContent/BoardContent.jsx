@@ -1,22 +1,18 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import './BoardContent.scss';
-import { isEmpty, cloneDeep } from 'lodash';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 
-import { initialData } from 'actions/initialData';
-import sortByKeyOfAnotherArr from 'utilities/sortByKeyOfAnotherArr';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { reOrder } from 'utilities/dndutil';
-
+import AddColumn from 'components/AddColumn/AddColumn';
 import Column from '../Column/Column.jsx';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+
+import { isEmpty, cloneDeep } from 'lodash';
+import { initialData } from 'actions/initialData';
+import { reOrder } from 'utilities/dndutil';
+import sortByKeyOfAnotherArr from 'utilities/sortByKeyOfAnotherArr';
+
 function BoardContent() {
     const [board, setBoard] = useState({});
     const [columns, setColumns] = useState([]);
-    const trashElement = useRef();
-
-    const appBar = document.querySelector('.app_bar');
-    const boardBbar = document.querySelector('.board_bar');
 
     useEffect(() => {
         const boardFromDb = initialData.boards.find(
@@ -53,8 +49,6 @@ function BoardContent() {
         );
     }
     const onDragEnd = (result) => {
-        trashElement.current.style.display = 'none';
-
         const { source, destination } = result;
         // invalid position drop
         if (!destination) {
@@ -126,18 +120,25 @@ function BoardContent() {
                 //change object reference and setState
                 setColumns(cloneDeep(columns));
             }
-            appBar.style.opacity = 'inherit';
-            boardBbar.style.opacity = 'inherit';
         }
     };
-    const onDragStart = (start) => {
-        trashElement.current.style.display = 'flex';
-        console.log(start);
+    const addNewColumn = (newColumn) => {
+        const newColumns = [...columns];
+        newColumns.push(newColumn);
+
+        //update board
+        board.columns = newColumns;
+        //update board column order
+        const newColumnsOrder = board.columns.map((column) => column.id);
+        board.columnOrder = newColumnsOrder;
+        // end update //
+
+        setColumns(newColumns);
     };
 
     console.log('render');
     return (
-        <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
+        <DragDropContext onDragEnd={onDragEnd}>
             <Droppable
                 droppableId={board.id}
                 direction='horizontal'
@@ -171,22 +172,10 @@ function BoardContent() {
                             );
                         })}
                         {provided.placeholder}
-                        <div className='crud_list add_list'>
-                            <div className='add_list'>
-                                <FontAwesomeIcon icon={solid('plus')} />
-                                Add another list
-                                <form action=''></form>
-                            </div>
-
-                            <div
-                                ref={trashElement}
-                                className='crud_list trash_item'
-                            >
-                                <FontAwesomeIcon icon={solid('trash')} />
-                                Delete Item
-                                <form action=''></form>
-                            </div>
-                        </div>
+                        <AddColumn
+                            boardId={board.id}
+                            addNewColumn={addNewColumn}
+                        />
                     </div>
                 )}
             </Droppable>
